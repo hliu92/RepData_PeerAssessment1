@@ -74,7 +74,8 @@ sum(is.na(activity$date))
 sum(is.na(activity$steps))
 ```
 
-Devise a strategy for filling in all of the missing values in the dataset, use the mean for that 5-minute interval.
+Devise a strategy for filling in all of the missing values in the dataset.  
+* Strategy: use the mean for the 5-minute interval.  
 Create a new dataset that is equal to the original dataset but with the missing data filled in.
 
 ```{r}
@@ -99,11 +100,11 @@ median(sumstep_new, na.rm = TRUE)
 
 Q: Do these values differ from the estimates from the first part of the assignment? 
 
-A: The mean kept the same (10766.19) after filling the NAs; and the median increased from 10765 to 10766.19 after filling the NAs.
+* A: The mean kept the same (10766.19) after filling the NAs; and the median increased from 10765 to 10766.19 after filling the NAs.
 
 Q: What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
-A: Total daily number of steps increased because the filled data are all equal to or above 0.
+* A: Total daily number of steps increased because the filled data are all equal to or above 0.
 
 # Are there differences in activity patterns between weekdays and weekends?
 
@@ -130,4 +131,4 @@ xyplot(mean~interval|wday, meanstep_itv2, type="l", layout = c(1,2),
 
 Q: Are there differences in activity patterns between weekdays and weekends?
 
-A: Yes, activity patterns are difference between weekdays and weekends.
+* A: Yes, activity patterns are difference between weekdays and weekends.

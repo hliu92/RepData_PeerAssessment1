@@ -84,26 +84,6 @@ Make a time series plot of the 5-minute interval (x-axis) and the average number
 
 ```r
 library(dplyr)
-```
-
-```
-## 
-## Attaching package: 'dplyr'
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 meanstep_itv <- summarise(group_by(activity, interval), 
                           mean = mean(steps, na.rm = TRUE))
 plot(meanstep_itv$interval, meanstep_itv$mean, type = "l", 
@@ -149,7 +129,8 @@ sum(is.na(activity$steps))
 ## [1] 2304
 ```
 
-Devise a strategy for filling in all of the missing values in the dataset, use the mean for that 5-minute interval.
+Devise a strategy for filling in all of the missing values in the dataset.  
+* Strategy: use the mean for the 5-minute interval.  
 Create a new dataset that is equal to the original dataset but with the missing data filled in.
 
 
@@ -196,11 +177,11 @@ median(sumstep_new, na.rm = TRUE)
 
 Q: Do these values differ from the estimates from the first part of the assignment? 
 
-A: The mean kept the same (10766.19) after filling the NAs; and the median increased from 10765 to 10766.19 after filling the NAs.
+* A: The mean kept the same (10766.19) after filling the NAs; and the median increased from 10765 to 10766.19 after filling the NAs.
 
 Q: What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
-A: Total daily number of steps increased because the filled data are all equal to or above 0.
+* A: Total daily number of steps increased because the filled data are all equal to or above 0.
 
 # Are there differences in activity patterns between weekdays and weekends?
 
@@ -209,24 +190,6 @@ Create a new factor variable in the dataset with two levels ¨C ¡°weekday¡± and ¡
 
 ```r
 library(lubridate)
-```
-
-```
-## Warning: package 'lubridate' was built under R version 3.4.1
-```
-
-```
-## 
-## Attaching package: 'lubridate'
-```
-
-```
-## The following object is masked from 'package:base':
-## 
-##     date
-```
-
-```r
 activity_new$wday <- 
         ifelse(wday(activity_new$date) %in% c(1,7), "Weekend", "Weekday")
 activity_new$wday <- as.factor(activity_new$wday)
@@ -248,13 +211,6 @@ Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minut
 meanstep_itv2 <- summarise(group_by(activity_new, interval, wday),
                            mean = mean(steps))
 library(lattice)
-```
-
-```
-## Warning: package 'lattice' was built under R version 3.4.1
-```
-
-```r
 xyplot(mean~interval|wday, meanstep_itv2, type="l", layout = c(1,2),
        main="Average no. of steps taken", xlab="Interval",
        ylab="Mean steps")
@@ -264,4 +220,4 @@ xyplot(mean~interval|wday, meanstep_itv2, type="l", layout = c(1,2),
 
 Q: Are there differences in activity patterns between weekdays and weekends?
 
-A: Yes, activity patterns are difference between weekdays and weekends.
+* A: Yes, activity patterns are difference between weekdays and weekends.

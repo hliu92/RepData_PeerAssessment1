@@ -270,23 +270,7 @@ median(sumstep, na.rm = TRUE)
 <p>Make a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)</p>
 
 <pre><code class="r">library(dplyr)
-</code></pre>
-
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;
-</code></pre>
-
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag
-</code></pre>
-
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union
-</code></pre>
-
-<pre><code class="r">meanstep_itv &lt;- summarise(group_by(activity, interval), 
+meanstep_itv &lt;- summarise(group_by(activity, interval), 
                           mean = mean(steps, na.rm = TRUE))
 plot(meanstep_itv$interval, meanstep_itv$mean, type = &quot;l&quot;, 
      main = &quot;Average no. of steps taken&quot;, xlab = &quot;Interval&quot;, ylab = &quot;Mean steps&quot;)
@@ -323,8 +307,12 @@ sum(is.na(activity$steps))
 <pre><code>## [1] 2304
 </code></pre>
 
-<p>Devise a strategy for filling in all of the missing values in the dataset, use the mean for that 5-minute interval.
-Create a new dataset that is equal to the original dataset but with the missing data filled in.</p>
+<p>Devise a strategy for filling in all of the missing values in the dataset.  </p>
+
+<ul>
+<li>Strategy: use the mean for the 5-minute interval.<br/>
+Create a new dataset that is equal to the original dataset but with the missing data filled in.</li>
+</ul>
 
 <pre><code class="r">activity_new &lt;- activity
 itvmean &lt;- tapply(activity_new$steps, activity_new$interval, mean, na.rm=TRUE, simplify = TRUE)
@@ -361,32 +349,22 @@ median(sumstep_new, na.rm = TRUE)
 
 <p>Q: Do these values differ from the estimates from the first part of the assignment? </p>
 
-<p>A: The mean kept the same (10766.19) after filling the NAs; and the median increased from 10765 to 10766.19 after filling the NAs.</p>
+<ul>
+<li>A: The mean kept the same (10766.19) after filling the NAs; and the median increased from 10765 to 10766.19 after filling the NAs.</li>
+</ul>
 
 <p>Q: What is the impact of imputing missing data on the estimates of the total daily number of steps?</p>
 
-<p>A: Total daily number of steps increased because the filled data are all equal to or above 0.</p>
+<ul>
+<li>A: Total daily number of steps increased because the filled data are all equal to or above 0.</li>
+</ul>
 
 <h1>Are there differences in activity patterns between weekdays and weekends?</h1>
 
 <p>Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.</p>
 
 <pre><code class="r">library(lubridate)
-</code></pre>
-
-<pre><code>## Warning: package &#39;lubridate&#39; was built under R version 3.4.1
-</code></pre>
-
-<pre><code>## 
-## Attaching package: &#39;lubridate&#39;
-</code></pre>
-
-<pre><code>## The following object is masked from &#39;package:base&#39;:
-## 
-##     date
-</code></pre>
-
-<pre><code class="r">activity_new$wday &lt;- 
+activity_new$wday &lt;- 
         ifelse(wday(activity_new$date) %in% c(1,7), &quot;Weekend&quot;, &quot;Weekday&quot;)
 activity_new$wday &lt;- as.factor(activity_new$wday)
 str(activity_new)
@@ -404,12 +382,7 @@ str(activity_new)
 <pre><code class="r">meanstep_itv2 &lt;- summarise(group_by(activity_new, interval, wday),
                            mean = mean(steps))
 library(lattice)
-</code></pre>
-
-<pre><code>## Warning: package &#39;lattice&#39; was built under R version 3.4.1
-</code></pre>
-
-<pre><code class="r">xyplot(mean~interval|wday, meanstep_itv2, type=&quot;l&quot;, layout = c(1,2),
+xyplot(mean~interval|wday, meanstep_itv2, type=&quot;l&quot;, layout = c(1,2),
        main=&quot;Average no. of steps taken&quot;, xlab=&quot;Interval&quot;,
        ylab=&quot;Mean steps&quot;)
 </code></pre>
@@ -418,7 +391,9 @@ library(lattice)
 
 <p>Q: Are there differences in activity patterns between weekdays and weekends?</p>
 
-<p>A: Yes, activity patterns are difference between weekdays and weekends.</p>
+<ul>
+<li>A: Yes, activity patterns are difference between weekdays and weekends.</li>
+</ul>
 
 </body>
 
